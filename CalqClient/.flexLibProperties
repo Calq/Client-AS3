@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="3">
+  <includeClasses>
+    <classEntry path="io.calq.CalqClient"/>
+    <classEntry path="io.calq.util.Util"/>
+    <classEntry path="io.calq.ReservedActionProperties"/>
+    <classEntry path="io.calq.analytics.AbstractAnalyticsApiCall"/>
+    <classEntry path="io.calq.analytics.ActionApiCall"/>
+    <classEntry path="io.calq.analytics.ApiDispatcher"/>
+  </includeClasses>
+  <includeResources/>
+  <namespaceManifests/>
+</flexLibProperties>
