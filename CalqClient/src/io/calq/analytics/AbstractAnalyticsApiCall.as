@@ -68,7 +68,15 @@ package io.calq.analytics
 		 */
 		public function get payload() : String 
 		{
-			return JSON.stringify(buildJSONPayload());
+			return JSON.stringify(this.payloadAsJson);
+		}
+		
+		/**
+		 * Returns an object ready to be encoded to JSON.
+		 */
+		public function get payloadAsJson() : Object 
+		{
+			return buildJSONPayload();
 		}
 		
 		/**

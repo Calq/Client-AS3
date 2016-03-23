@@ -53,6 +53,11 @@ package io.calq
 		public static const TIMESTAMP:String = "timestamp";
 		
 		/**
+		 * The timestamp this device thinks is the current UTC timestamp.
+		 */
+		public static const UTC_NOW:String = "utc_now";
+		
+		/**
 		 * The unique key to identify this project when writing.
 		 */
 		public static const WRITE_KEY:String = "write_key";

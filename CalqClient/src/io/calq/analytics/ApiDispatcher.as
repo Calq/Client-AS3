@@ -11,6 +11,8 @@ package io.calq.analytics
 	import flash.net.URLRequestHeader;
 	import flash.net.URLRequestMethod;
 	import flash.utils.Timer;
+	
+	import io.calq.ReservedApiProperties;
 
 	public class ApiDispatcher
 	{
@@ -70,10 +72,13 @@ package io.calq.analytics
 		 */
 		protected function dispatch(apiCall:AbstractAnalyticsApiCall) : void
 		{
+			var payload:Object = apiCall.payloadAsJson;
+			payload[ReservedApiProperties.UTC_NOW] = new Date();
+			
 			var request:URLRequest = new URLRequest(apiRoot + apiCall.apiEndpoint);
 			request.method = URLRequestMethod.POST;
 			request.requestHeaders.push(new URLRequestHeader("Content-Type", "application/json"));
-			request.data = apiCall.payload;
+			request.data = JSON.stringify(payload);
 			
 			var loader:URLLoader = new URLLoader();
 			loader.dataFormat = URLLoaderDataFormat.TEXT;
