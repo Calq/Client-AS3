@@ -108,6 +108,15 @@ package io.calq
 			{
 				trace("[CalqClient] Warning: Mutliple CalqClient instances have been created.");
 			}
+			
+			// Custom options
+			if(options != null)
+			{
+				if(options.dispatcher != null)	// Custom dispatch class (maybe want to redirect to msg store etc)
+				{
+					_dispatcher = options.dispatcher;
+				}
+			}
 		}
 		
 		/**
@@ -207,7 +216,7 @@ package io.calq
 			
 			var mergedProperties:Object = Util.extend({}, _globalProperties, properties);
 			
-			_dispatcher.enqueue(new ActionApiCall(_actor, action, properties, _writeKey));
+			_dispatcher.enqueue(new ActionApiCall(_actor, action, mergedProperties, _writeKey));
 			
 			if(!_hasTracked)
 			{

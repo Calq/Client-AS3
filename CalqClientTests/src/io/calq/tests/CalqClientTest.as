@@ -1,6 +1,9 @@
 package io.calq.tests
 {
 	import io.calq.CalqClient;
+	import io.calq.analytics.AbstractAnalyticsApiCall;
+	import io.calq.analytics.ActionApiCall;
+	import io.calq.tests.MockDispatcher;
 	import io.calq.util.GUID;
 	
 	import org.flexunit.Assert;
@@ -80,6 +83,24 @@ package io.calq.tests
 		}
 		
 		/**
+		 * Tests that global properties are sent with each action.
+		 */
+		[Test]
+		public function testGlobalPropertyMerging() : void
+		{
+			var mockDispatcher:MockDispatcher = new MockDispatcher();
+			
+			var calq:CalqClient = new CalqClient(writeKey, { 'ignoreState' : true, 'dispatcher' : mockDispatcher });
+			calq.setGlobalProperty("test", "test_val");
+			calq.track("AS3 Test Action");
+
+			Assert.assertTrue("Expected a dispatched event", mockDispatcher.dispatched.length == 1);
+			
+			var apiCall:AbstractAnalyticsApiCall = mockDispatcher.dispatched[0];
+			Assert.assertTrue("Expected to see set global property", apiCall.payloadAsJson.properties.test == "test_val");
+		}
+		
+		/**
 		 * Does a full test from raising an event and sending it to Calq. This test requires a valid
 		 * Calq writeKey or it will not be able to send data.
 		 */
@@ -99,4 +120,5 @@ package io.calq.tests
 			calq.profile({ '$email' : "test@notarealemail.com", '$full_name' : calq.actor });
 		}
 	}
+	
 }
